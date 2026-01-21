@@ -1,39 +1,32 @@
-from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
+from telegram import Update
 
-TOKEN = "PUT_YOUR_BOT_TOKEN_HERE"
+TOKEN =8196425325:AAEDo6h6rc0fJszPGEKc8_DZtbPAah3DJeg
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "هلا 👋\n"
-        "أنا بوت رد تلقائي.\n"
+        "👋 هلا!\n"
+        "أنا بوت يرد تلقائيًا بدل صاحبي 🤖\n"
         "اكتب سؤالك وأنا أجاوبك 😉"
     )
 
 async def auto_reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
-    if "مرحبا" in text or "هلو" in text:
-        reply = "أهلين وسهلين 🌹"
+    if "هلو" in text or "مرحبا" in text:
+        reply = "🌹 أهلين وسهلين"
     elif "منو انت" in text:
-        reply = "أنا بوت أرد بدال صاحب الحساب 🤖"
+        reply = "🤖 أنا بوت يرد بدل صاحب الحساب"
     elif "شلونك" in text:
-        reply = "تمام الحمدلله، انت شلونك؟ 😊"
-    elif "مساعدة" in text:
-        reply = "اكتب سؤالك وأنا أحاول أساعدك"
+        reply = "😊 تمام الحمدلله، إنت شلونك؟"
     else:
-        reply = "وصلني سؤالك 👍 راح يتم الرد بأقرب وقت"
+        reply = "📩 وصلت رسالتك، راح يرد عليك صاحب الحساب بأقرب وقت"
 
     await update.message.reply_text(reply)
 
-def main():
-    app = ApplicationBuilder().token(TOKEN).build()
+app = ApplicationBuilder().token(TOKEN).build()
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, auto_reply))
+app.add_handler(CommandHandler("start", start))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, auto_reply))
 
-    print("Bot is running...")
-    app.run_polling()
-
-if __name__ == "__main__":
-    main()
+app.run_polling()
